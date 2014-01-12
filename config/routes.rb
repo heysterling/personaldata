@@ -1,7 +1,13 @@
 Personaldata::Application.routes.draw do
 
   get '/' => 'recent_activity#index'
-  
+
+  # OAuth
+  get 'auth/moves/callback' => 'moves_auth#callback'
+  get 'logout' => 'moves_auth#logout'
+
+  root 'recent_activity#index'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

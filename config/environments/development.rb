@@ -26,4 +26,8 @@ Personaldata::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+
+  secrets = YAML.load(File.open(Rails.root.join('config/secrets.yml')).read)
+  ENV['MOVES_CLIENT_ID'] = secrets["moves_oauth"]["client_id"]
+  ENV['MOVES_CLIENT_SECRET'] = secrets["moves_oauth"]["client_secret"]
 end
