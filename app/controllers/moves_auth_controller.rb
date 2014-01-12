@@ -15,13 +15,13 @@ class MovesAuthController < ApplicationController
       redirect_uri: redirect_uri
     }
 
-    puts data
     begin
       response = RestClient.post('https://api.moves-app.com/oauth/v1/access_token', data)
       result = JSON.parse(response)
 
 
       session[:access_token] = result["access_token"]
+      session[:refresh_token] = result["refresh_token"]
       session[:user_id] = result["user_id"]
       redirect_to root_url
 
@@ -29,12 +29,5 @@ class MovesAuthController < ApplicationController
       puts e
       redirect_to root_url
     end
-
-
-
-    # For mobile auth...
-    # new_token = client.auth_code.get_token(params[:code], :redirect_uri => redirect_uri)
-    # session[:access_token]  = new_token.token
-    # redirect root_url
   end
 end

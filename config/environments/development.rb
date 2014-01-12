@@ -30,4 +30,6 @@ Personaldata::Application.configure do
   secrets = YAML.load(File.open(Rails.root.join('config/secrets.yml')).read)
   ENV['MOVES_CLIENT_ID'] = secrets["moves_oauth"]["client_id"]
   ENV['MOVES_CLIENT_SECRET'] = secrets["moves_oauth"]["client_secret"]
+
+  ENV['SSL_CERT_FILE'] = '/usr/local/opt/curl-ca-bundle/share/ca-bundle.crt'
 end
