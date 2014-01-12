@@ -8,26 +8,30 @@ class ApplicationController < ActionController::Base
   def authenticate
     if session[:access_token].blank?
       #redirect_to signin_url
-      params = {
-        redirect_uri: redirect_uri,
-        response_type: 'code',
-        scope: 'activity',
-        client_id: ENV['MOVES_CLIENT_ID']
-      }
-      moves_url = "https://api.moves-app.com/oauth/v1/authorize?#{params.to_query}"
-      redirect_to moves_url
+      redirect_to authorize_url
     end
   end
 
 protected
-  # def client
-  #   OAuth2::Client.new(
-  #     ENV['MOVES_CLIENT_ID'],
-  #     ENV['MOVES_CLIENT_SECRET'],
-  #     :site => 'https://api.moves-app.com',
-  #     :authorize_url => 'moves://app/authorize',
-  #     :token_url => 'https://api.moves-app.com/oauth/v1/access_token')
-  # end
+
+  def authorize_url
+    params = {
+      redirect_uri: redirect_uri,
+      response_type: 'code',
+      scope: 'activity',
+      client_id: ENV['MOVES_CLIENT_ID']
+    }
+    "https://api.moves-app.com/oauth/v1/authorize?#{params.to_query}"
+  end
+
+  def client
+    OAuth2::Client.new(
+      ENV['MOVES_CLIENT_ID'],
+      ENV['MOVES_CLIENT_SECRET'],
+      :site => 'https://api.moves-app.com',
+      :authorize_url => authorize_url,
+      :token_url => 'https://api.moves-app.com/oauth/v1/access_token')
+  end
 
   def redirect_uri
     uri = URI.parse(request.url)
