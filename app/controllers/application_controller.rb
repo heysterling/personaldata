@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+
 protected
 
   def authorize_url
