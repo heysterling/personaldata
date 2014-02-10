@@ -3,8 +3,8 @@
 <head>
   <title>Personaldata</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "core", "interactiveLayer.js", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
+  <%= yield :css %>
 
 </head>
 <body>
@@ -12,5 +12,8 @@
 <%= yield %>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<%= javascript_include_tag "application", "core", "interactiveLayer.js", "data-turbolinks-track" => true %>
+<%= javascript_include_tag "d3.v3.min.js" %>
+<%= yield :js %>
 </body>
 </html>

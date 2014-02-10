@@ -1,14 +1,31 @@
+<% content_for :css do %>
+  <style type="text/css">
+    div.bar {
+      display: inline-block;
+      width: 20px;
+      height: 75px; /* Gets overriden by D3-assigned height below */
+      background-color: teal;
+    }
+  </style>
+<% end %>
+
+<% content_for :js do %>
+  <script type="text/javascript">
+  
+    var dataset = <%= @day_distance.to_json %>;
+    
+    d3.select("body").selectAll("div")
+      .data(dataset)
+      .enter()
+      .append("div")
+      .attr("class", "bar")
+      .style("height", function(d) {
+        return d + "px";
+      });
+  </script>
+<% end %>
+
 <p>Hello, world.</p>
 
 <p>Current time is: <%= @current_time %></p>
 
-</script>
-
-<pre>
-  <code>
-<!--     <%= @profile %>
-    <%= @json %>
- -->    <%= @sum_month %>
-
-  </code>
-</pre>

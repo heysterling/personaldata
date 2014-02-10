@@ -3,8 +3,13 @@ class RecentActivityController < ApplicationController
     @current_time = DateTime.now
     @profile = access_token.get("/api/v1/user/profile").parsed    
     @json = access_token.get("/api/v1/user/summary/daily/20140120").parsed
-    @sum_month = access_token.get("/api/v1/user/summary/daily?pastDays=7").parsed
+    sum_month = access_token.get("/api/v1/user/summary/daily?pastDays=31").parsed
 
+    @day_distance = sum_month.map do |day|
+      Array.wrap(day["summary"]).inject(0) do |total_distance, summary|
+    	 total_distance + summary["distance"] / 200 # 8134.0
+      end
+    end
   end
 end
 
@@ -23,4 +28,4 @@ end
 # [{""duration"=>5754.0, "distance"=>7670.0, "steps"=>10387}]},
 # [{"{"date"=>"20140209", "summary"=>nil}]
 
-  
+  []
